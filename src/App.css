@@ -9,6 +9,7 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  width: 100vw;
   height: 30vh;
 }
 
@@ -29,4 +30,5 @@
   display: flex;
   justify-content: flex-end;
   width: 80vw;
+  margin: 10px;
 }

@@ -1,16 +1,19 @@
 .detail-item-container {
-    display: flex;
-    justify-content: center;
-    padding-top: 20px;
-    position: relative;
+  display: flex;
+  justify-content: center;
+  padding-top: 20px;
+  position: relative;
 }
 
 .item {
-    border: none;
+  border: none;
 }
 
 .event-box {
-    position: absolute;
-    left: 30%;
-    top: 50%;
+  position: absolute;
+  left: 30%;
+  top: 50%;
+}
+.tab-nav-container {
+  width: 80vw;
 }

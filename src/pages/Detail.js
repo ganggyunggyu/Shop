@@ -4,12 +4,21 @@ import datas from "../data";
 import { Card, Button, Nav } from "react-bootstrap";
 import "./Detail.css";
 
-export default function Detail() {
+export default function Detail(props) {
   let id = useParams().id;
   let item = [...datas];
+  let [tabCount, setTabCount] = useState(0);
+  let [detailFade, setDetailFade] = useState("");
   const [timer, setTimer] = useState(2);
   const [eventBox, setEventBox] = useState(true);
-  let [tabCount, setTabCount] = useState(0);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setDetailFade("fade-end");
+    }, 10);
+
+    setDetailFade("");
+  }, [Detail]);
 
   let navigator = useNavigate();
 
@@ -26,17 +35,12 @@ export default function Detail() {
   });
 
   return (
-    <>
+    <div className={`fade-start ${detailFade}`}>
       <div className="detail-item-container">
-        {eventBox == true ? (
-          <div className="alert alert-warning event-box">
-            {timer}초 후 사라집니다
-          </div>
-        ) : null}
-        <Card className="item">
+        <Card className={`item ${props.darkMode}`}>
           <div className="deteil-item-img-box">
             <Card.Img
-              className="detail-item-img"
+              className="detail-item-img br-10px"
               variant="top"
               src={
                 process.env.PUBLIC_URL + "/img/item/item" + (+id + 1) + ".jpg"
@@ -49,6 +53,7 @@ export default function Detail() {
             <Card.Text>{item[id].price} 원</Card.Text>
             <div className="detail-btn-box">
               <Button
+                className={`${props.darkModeBtnStyle}`}
                 onClick={() => {
                   navigator("/buy");
                 }}
@@ -56,51 +61,57 @@ export default function Detail() {
               >
                 구매하기
               </Button>
-              <Button variant="light">장바구니</Button>
+              <Button className={`${props.darkModeBtnStyle}`} variant="light">
+                장바구니
+              </Button>
             </div>
+            {eventBox == true ? (
+              <div className="alert alert-warning event-box">
+                {timer}초 후 사라집니다
+              </div>
+            ) : null}
           </Card.Body>
         </Card>
       </div>
       <div className="flex-center">
-        <Nav
-          className="tab-nav-container"
-          variant="tabs"
-          defaultActiveKey="link0"
-        >
+        <Nav className="w-80vw" variant="tabs" defaultActiveKey="link0">
           <Nav.Item>
             <Nav.Link
+              className={`${props.darkModeBtnStyle}`}
               onClick={() => {
                 setTabCount(0);
               }}
               eventKey="link0"
             >
-              버튼0
+              상세정보
             </Nav.Link>
           </Nav.Item>
           <Nav.Item>
             <Nav.Link
+              className={`${props.darkModeBtnStyle}`}
               onClick={() => {
                 setTabCount(1);
               }}
               eventKey="link1"
             >
-              버튼1
+              배송문의
             </Nav.Link>
           </Nav.Item>
           <Nav.Item>
             <Nav.Link
+              className={`${props.darkModeBtnStyle}`}
               onClick={() => {
                 setTabCount(2);
               }}
               eventKey="link2"
             >
-              버튼2
+              판매자 정보
             </Nav.Link>
           </Nav.Item>
         </Nav>
       </div>
-      <DetailTab tabCount={tabCount}></DetailTab>
-    </>
+      <DetailTab tabCount={tabCount} item={item} id={id} />
+    </div>
   );
 }
 
@@ -112,15 +123,27 @@ function DetailTab(props) {
   // } else if (props.tabCount === 2) {
   //   return <div>2</div>;
   // }
+  let [detailTabFade, setDetailTabFade] = useState("");
+  useEffect(() => {
+    setTimeout(() => {
+      setDetailTabFade("fade-end");
+    }, 10);
+    setDetailTabFade("");
+  }, [props.tabCount]);
   return (
-    <div className="detail-tab-container tab-nav-container flex-center">
+    <div
+      className={`detail-tab-container w-80vw flex-center fade-start ${detailTabFade}`}
+    >
       {/* {props.tabCount === 0 ? <div>0번 탭</div> : null}
       {props.tabCount === 1 ? <div>1번 탭</div> : null}
       {props.tabCount === 2 ? <div>2번 탭</div> : null} */}
+
       {
-        [<div>0번 탭</div>, <div>1번 탭</div>, <div>2번 탭</div>][
-          props.tabCount
-        ]
+        [
+          <div>{props.item[props.id]["title"]}</div>,
+          <div>1번 탭</div>,
+          <div>2번 탭</div>,
+        ][props.tabCount]
       }
     </div>
   );

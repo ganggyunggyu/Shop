@@ -1,11 +1,23 @@
 .nav-container {
-  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 80vw;
   height: 60px;
+  max-width: 1300px;
+  margin: auto;
 }
 
 .btn {
   cursor: pointer;
   margin: 10px;
+}
+
+@media (max-width: 572px) {
+  .nav-container {
+    justify-content: center;
+    width: 400px;
+  }
 }
 
 /*작아졋을때 w400px*/

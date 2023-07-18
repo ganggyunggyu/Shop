@@ -2,9 +2,10 @@ import "./App.css";
 import { Button, Navbar, Container, Nav, Card } from "react-bootstrap";
 import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import Product from "./components/Products";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import datas from "./data";
-import Detail from "./pages/Detail";
+import Detail from "./pages/Detail.js";
+import Cart from "./pages/Cart.js";
 import NavBar from "./components/NavBar";
 import axios from "axios";
 
@@ -12,6 +13,9 @@ function App() {
   let [shoes, setShoes] = useState(datas);
   const [dataCount, setDataCount] = useState(2);
   const [dataBool, setDataBool] = useState(true);
+  const [darkMode, setDarkMode] = useState("");
+  const [darkModeBtnStyle, setDarkModeBtnStyle] = useState("");
+  const [darkModeBool, setDarkModeBool] = useState(false);
 
   const abcSort = () => {
     let copyDatas = [...shoes];
@@ -26,7 +30,6 @@ function App() {
     });
     setShoes(copyDatas);
   };
-
   const defaultSort = () => {
     let copyDatas = [...datas];
     setShoes(copyDatas);
@@ -38,20 +41,45 @@ function App() {
     });
     setShoes(copyDatas);
   };
+  const darkModeBtn = () => {
+    if (darkModeBool === false) {
+      setDarkModeBool(true);
+    } else if (darkModeBool === true) {
+      setDarkModeBool(false);
+    }
+  };
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (darkModeBool == true) {
+        setDarkMode("dark-mode");
+        setDarkModeBtnStyle("dark-mode-btn");
+      } else {
+        setDarkMode("");
+        setDarkModeBtnStyle("");
+      }
+    }, 10);
+    console.log(darkModeBool);
+  }, [darkModeBool]);
 
   return (
-    <div className="App">
-      <div className="flex-center">
-        <NavBar></NavBar>
-      </div>
+    <div className={`App ${darkMode}`}>
+      <NavBar
+        darkMode={darkMode}
+        setDarkMode={setDarkMode}
+        darkModeBool={darkModeBool}
+        setDarkModeBool={setDarkModeBool}
+        darkModeBtn={darkModeBtn}
+      />
       <div className="main-bg"></div>
       <Routes>
         <Route
           path="/detail/:id"
           element={
-            <>
-              <Detail></Detail>
-            </>
+            <Detail
+              darkMode={darkMode}
+              darkModeBtnStyle={darkModeBtnStyle}
+            ></Detail>
           }
         ></Route>
         <Route
@@ -60,6 +88,7 @@ function App() {
             <>
               <div className="main-btn-box">
                 <Button
+                  className={`${darkModeBtnStyle}`}
                   variant="light"
                   onClick={() => {
                     priceSort();
@@ -68,6 +97,7 @@ function App() {
                   저렴 순 정렬
                 </Button>
                 <Button
+                  className={`${darkModeBtnStyle}`}
                   variant="light"
                   onClick={() => {
                     abcSort();
@@ -76,6 +106,7 @@ function App() {
                   가나다 정렬
                 </Button>
                 <Button
+                  className={`${darkModeBtnStyle}`}
                   variant="light"
                   onClick={() => {
                     defaultSort();
@@ -87,7 +118,14 @@ function App() {
               <div className="flex-center">
                 <div className="item-container">
                   {shoes.map((el, i) => {
-                    return <Product el={el} i={i}></Product>;
+                    return (
+                      <Product
+                        el={el}
+                        i={i}
+                        darkMode={darkMode}
+                        darkModeBtnStyle={darkModeBtnStyle}
+                      ></Product>
+                    );
                   })}
                 </div>
               </div>
@@ -110,7 +148,7 @@ function App() {
                           setDataBool(false);
                         });
                     }}
-                    className="btn"
+                    className={`btn ${darkModeBtnStyle}`}
                     variant="light"
                   >
                     더 보기
@@ -119,6 +157,14 @@ function App() {
               ) : (
                 <div className="btn-box">dataNone</div>
               )}
+            </>
+          }
+        ></Route>
+        <Route
+          path="/cart"
+          element={
+            <>
+              <Cart darkMode={darkMode} darkModeBtnStyle={darkModeBtnStyle} />
             </>
           }
         ></Route>

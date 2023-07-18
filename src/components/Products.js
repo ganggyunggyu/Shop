@@ -8,24 +8,19 @@ function Product(props) {
   const navigate = useNavigate();
 
   return (
-    <div className="item-box" key={props.i}>
-      <Card className="item" key={props.i}>
+    <div className={`item-box ${props.darkMode}`} key={props.i}>
+      <Card className={`item ${props.darkMode}`} key={props.i}>
         <Card.Img
-          className="item-img"
+          className="item-img br-10px"
           onClick={() => {
-            navigate("/detail/" + props.el.id + "");
+            navigate(`/detail/${props.el.id}`);
           }}
           variant="top"
-          src={
-            process.env.PUBLIC_URL +
-            "img/item/item" +
-            (props.el.id + 1) +
-            ".jpg"
-          }
+          src={`${process.env.PUBLIC_URL}img/item/item${props.el.id + 1}.jpg`}
         />
         <Card.Body>
           <Card.Title>{props.el.title}</Card.Title>
-          <Card.Text>{props.el.price} 원</Card.Text>
+          <Card.Text>{props.el.price}원</Card.Text>
         </Card.Body>
       </Card>
     </div>

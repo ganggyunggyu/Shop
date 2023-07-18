@@ -10,10 +10,5 @@
 }
 
 .event-box {
-  position: absolute;
-  left: 30%;
-  top: 50%;
-}
-.tab-nav-container {
-  width: 80vw;
+  width: 100%;
 }

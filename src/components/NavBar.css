@@ -12,11 +12,22 @@
   cursor: pointer;
   margin: 10px;
 }
+.nav-title {
+  cursor: pointer;
+}
 
 @media (max-width: 572px) {
   .nav-container {
     justify-content: center;
-    width: 400px;
+    width: 100vw;
+    font-size: 20px;
+  }
+  .nav-title {
+    font-size: 15px;
+    margin: 0;
+  }
+  .nav-item {
+    font-size: 15px;
   }
 }
 

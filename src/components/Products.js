@@ -9,12 +9,15 @@ function Product(props) {
 
   return (
     <div className={`item-box ${props.darkMode}`} key={props.i}>
-      <Card className={`item ${props.darkMode}`} key={props.i}>
+      <Card
+        onClick={() => {
+          navigate(`/detail/${props.el.id}`);
+        }}
+        className={`item musinsa-medium-font ${props.darkMode}`}
+        key={props.i}
+      >
         <Card.Img
           className="item-img br-10px"
-          onClick={() => {
-            navigate(`/detail/${props.el.id}`);
-          }}
           variant="top"
           src={`${process.env.PUBLIC_URL}img/item/item${props.el.id + 1}.jpg`}
         />

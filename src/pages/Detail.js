@@ -36,8 +36,10 @@ export default function Detail(props) {
 
   return (
     <div className={`fade-start ${detailFade}`}>
-      <div className="detail-item-container">
-        <Card className={`item ${props.darkMode}`}>
+      <div className="">
+        <Card
+          className={`detail-item-container musinsa-medium-font ${props.darkMode}`}
+        >
           <div className="deteil-item-img-box">
             <Card.Img
               className="detail-item-img br-10px"
@@ -74,8 +76,12 @@ export default function Detail(props) {
         </Card>
       </div>
       <div className="flex-center">
-        <Nav className="w-80vw" variant="tabs" defaultActiveKey="link0">
-          <Nav.Item>
+        <Nav
+          className="musinsa-medium-font w-80vw"
+          variant="tabs"
+          defaultActiveKey="link0"
+        >
+          <Nav.Item className="">
             <Nav.Link
               className={`${props.darkModeBtnStyle}`}
               onClick={() => {

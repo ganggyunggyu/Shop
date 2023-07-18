@@ -6,42 +6,46 @@ import { useNavigate } from "react-router-dom";
 export default function NavBar(props) {
   const navigate = useNavigate();
   return (
-    <Navbar className="nav-container" bg="ligth" data-bs-theme="ligth">
+    <Navbar
+      className={`nav-container ${props.darkMode} musinsa-medium-font`}
+      bg="ligth"
+      data-bs-theme="ligth"
+    >
       <div>
         <Navbar.Brand
-          className={`btn ${props.darkMode}`}
+          className={`nav-title ${props.darkMode}`}
           onClick={() => navigate("/")}
         >
-          뚜룬뚠신발을팔꺼야
+          나 신발엔 관심 없지만..
         </Navbar.Brand>
       </div>
       <div>
-        <Nav>
-          <Nav.Link className={`${props.darkMode}`} href="/">
+        <Nav className={`musinsa-medium-font ${props.darkMode}`}>
+          <Nav.Link className={`nav-item ${props.darkMode}`} href="/">
             Home
           </Nav.Link>
           <Nav.Link
-            className={`${props.darkMode}`}
+            className={`nav-item ${props.darkMode}`}
             onClick={() => navigate("./cart")}
           >
             Cart
           </Nav.Link>
           <Nav.Link
-            className={`${props.darkMode}`}
+            className={`nav-item ${props.darkMode}`}
             onClick={() => {
               navigate("/User");
             }}
           >
             User
           </Nav.Link>
-          <Nav.Link className={`${props.darkMode}`} href="/event">
+          <Nav.Link className={`nav-item ${props.darkMode}`} href="/event">
             Event
           </Nav.Link>
           <Nav.Link
             onClick={() => {
               props.darkModeBtn();
             }}
-            className={`${props.darkMode}`}
+            className={`nav-item ${props.darkMode}`}
           >
             Dark
           </Nav.Link>

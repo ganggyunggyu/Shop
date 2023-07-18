@@ -86,7 +86,7 @@ function App() {
           path="/"
           element={
             <>
-              <div className="main-btn-box">
+              <div className="main-btn-box musinsa-medium-font">
                 <Button
                   className={`${darkModeBtnStyle}`}
                   variant="light"
@@ -130,7 +130,7 @@ function App() {
                 </div>
               </div>
               {dataBool === true ? (
-                <div className="btn-box">
+                <div className="btn-box musinsa-medium-font">
                   <Button
                     onClick={() => {
                       axios

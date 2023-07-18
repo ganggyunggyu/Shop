@@ -4,7 +4,7 @@ import { Table } from "react-bootstrap";
 export default function Cart(props) {
   return (
     <div>
-      <Table className={`w-80vw m-auto ${props.darkMode}`}>
+      <Table className={`w-80vw m-auto musinsa-medium-font ${props.darkMode}`}>
         <thead>
           <tr>
             <th>#</th>

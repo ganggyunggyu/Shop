@@ -1,7 +1,20 @@
+@font-face {
+  font-family: "Musinsa-medium";
+  font-weight: normal;
+  src: url("./Font/musinsa.woff") format("woff");
+}
+/* white space bug fix in chrome */
+/* html,
+body {
+  margin: 0px;
+  padding: 0px;
+  overflow-x: hidden;
+} */
 .App {
   display: flex;
   justify-content: center;
   flex-direction: column;
+  min-height: 100%;
 }
 
 .main-bg {
@@ -11,8 +24,8 @@
   background-size: cover;
   width: 100vw;
   height: 30vw;
-  min-height: 350px;
-  max-height: 650px;
+  min-height: 200px;
+  max-height: 400px;
   min-width: 500px;
 }
 
@@ -50,4 +63,7 @@
 }
 .br-10px {
   border-radius: 10px;
+}
+.musinsa-medium-font {
+  font-family: "Musinsa-medium";
 }

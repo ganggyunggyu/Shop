@@ -23,7 +23,7 @@ function Product(props) {
         />
         <Card.Body>
           <Card.Title>{props.el.title}</Card.Title>
-          <Card.Text>{props.el.price}원</Card.Text>
+          <Card.Text>{props.price}원</Card.Text>
         </Card.Body>
       </Card>
     </div>

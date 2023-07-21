@@ -17,6 +17,11 @@ function App() {
   const [darkModeBtnStyle, setDarkModeBtnStyle] = useState("");
   const [darkModeBool, setDarkModeBool] = useState(false);
 
+  console.log(shoes)
+
+  const priceToString = (price) => {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
   const abcSort = () => {
     let copyDatas = [...shoes];
     copyDatas.sort((a, b) => {
@@ -93,8 +98,7 @@ function App() {
                   onClick={() => {
                     priceSort();
                   }}
-                >
-                  저렴 순 정렬
+                >저렴 순 정렬
                 </Button>
                 <Button
                   className={`${darkModeBtnStyle}`}
@@ -102,8 +106,7 @@ function App() {
                   onClick={() => {
                     abcSort();
                   }}
-                >
-                  가나다 정렬
+                >가나다 정렬
                 </Button>
                 <Button
                   className={`${darkModeBtnStyle}`}
@@ -111,9 +114,7 @@ function App() {
                   onClick={() => {
                     defaultSort();
                   }}
-                >
-                  원래대로 정렬
-                </Button>
+                >원래대로 정렬</Button>
               </div>
               <div className="flex-center">
                 <div className="item-container">
@@ -121,6 +122,7 @@ function App() {
                     return (
                       <Product
                         el={el}
+                        price = {priceToString(el['price'])}
                         i={i}
                         darkMode={darkMode}
                         darkModeBtnStyle={darkModeBtnStyle}

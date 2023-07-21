@@ -9,6 +9,7 @@ export default function Detail(props) {
   let item = [...datas];
   let [tabCount, setTabCount] = useState(0);
   let [detailFade, setDetailFade] = useState("");
+  let navigator = useNavigate();
   const [timer, setTimer] = useState(2);
   const [eventBox, setEventBox] = useState(true);
 
@@ -19,8 +20,6 @@ export default function Detail(props) {
 
     setDetailFade("");
   }, [Detail]);
-
-  let navigator = useNavigate();
 
   useEffect(() => {
     if (timer > 0) {

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import datas from "../data";
 import { Card, Button, Nav } from "react-bootstrap";
+import { cartAdd } from "../store.js";
+import { useDispatch } from "react-redux";
 import "./Detail.css";
 
 export default function Detail(props) {
@@ -9,7 +11,8 @@ export default function Detail(props) {
   let item = [...datas];
   let [tabCount, setTabCount] = useState(0);
   let [detailFade, setDetailFade] = useState("");
-  let navigator = useNavigate();
+  const navigator = useNavigate();
+  const dispatch = useDispatch();
   const [timer, setTimer] = useState(2);
   const [eventBox, setEventBox] = useState(true);
 
@@ -62,7 +65,13 @@ export default function Detail(props) {
               >
                 구매하기
               </Button>
-              <Button className={`${props.darkModeBtnStyle}`} variant="light">
+              <Button
+                className={`${props.darkModeBtnStyle}`}
+                variant="light"
+                onClick={() => {
+                  dispatch(cartAdd(item[id]));
+                }}
+              >
                 장바구니
               </Button>
             </div>

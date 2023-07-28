@@ -17,8 +17,6 @@ function App() {
   const [darkModeBtnStyle, setDarkModeBtnStyle] = useState("");
   const [darkModeBool, setDarkModeBool] = useState(false);
 
-  console.log(shoes)
-
   const priceToString = (price) => {
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   }

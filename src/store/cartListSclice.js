@@ -1,19 +1,29 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice } from "@reduxjs/toolkit";
 
 let cartList = createSlice({
-  name : 'cartList',
-  initialState : [
-    {id : 0, name : 'White and Black', count : 2},
-    {id : 1, name : 'Grey Yordan', count : 1}
-  ],
-  reducers : {
-    countPlus(state, id){
-      state[id.payload]['count'] = state[id.payload]['count'] + 1
+  name: "cartList",
+  initialState: [],
+  reducers: {
+    countPlus(state, id) {
+      state[id.payload]["count"] = state[id.payload]["count"] + 1;
     },
-    countMinus(state, id){
-      state[id.payload]['count']-=1
-    }
-  }
-})
+    countMinus(state, id) {
+      state[id.payload]["count"] -= 1;
+    },
+    cartDelete(state, id) {
+      state.splice(id.payload, 1);
+    },
+    cartAdd(state, el) {
+      for (let i = 0; i < state.length; i++) {
+        if (state[i]["title"] === el.payload["title"]) {
+          state[i]["count"] += 1;
+          return;
+        }
+      }
+      el.payload["count"] += 1;
+      state.push(el.payload);
+    },
+  },
+});
 
 export default cartList;

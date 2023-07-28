@@ -21,7 +21,10 @@ export default function NavBar(props) {
       </div>
       <div>
         <Nav className={`musinsa-medium-font ${props.darkMode}`}>
-          <Nav.Link className={`nav-item ${props.darkMode}`} href="/">
+          <Nav.Link
+            className={`nav-item ${props.darkMode}`}
+            onClick={() => navigate("/")}
+          >
             Home
           </Nav.Link>
           <Nav.Link

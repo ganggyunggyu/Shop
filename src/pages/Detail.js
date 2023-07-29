@@ -3,18 +3,20 @@ import { useParams, useNavigate } from "react-router-dom";
 import datas from "../data";
 import { Card, Button, Nav } from "react-bootstrap";
 import { cartAdd } from "../store.js";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import "./Detail.css";
 
 export default function Detail(props) {
-  let id = useParams().id;
-  let item = [...datas];
   let [tabCount, setTabCount] = useState(0);
   let [detailFade, setDetailFade] = useState("");
   const navigator = useNavigate();
   const dispatch = useDispatch();
   const [timer, setTimer] = useState(2);
   const [eventBox, setEventBox] = useState(true);
+  const products = useSelector((products) => {
+    return products["products"];
+  });
+  const id = useParams().id;
 
   useEffect(() => {
     setTimeout(() => {
@@ -34,6 +36,7 @@ export default function Detail(props) {
     if (timer == 0) {
       setEventBox(false);
     }
+    console.log(products[id]);
   });
 
   return (
@@ -52,9 +55,9 @@ export default function Detail(props) {
             />
           </div>
           <Card.Body>
-            <Card.Title>{item[id].title}</Card.Title>
-            <Card.Text>{item[id].content}</Card.Text>
-            <Card.Text>{item[id].price} 원</Card.Text>
+            <Card.Title>{products[id]["title"]}</Card.Title>
+            <Card.Text>{products[id]["content"]}</Card.Text>
+            <Card.Text>{products[id]["price"]} 원</Card.Text>
             <div className="detail-btn-box">
               <Button
                 className={`${props.darkModeBtnStyle}`}
@@ -69,7 +72,7 @@ export default function Detail(props) {
                 className={`${props.darkModeBtnStyle}`}
                 variant="light"
                 onClick={() => {
-                  dispatch(cartAdd(item[id]));
+                  dispatch(cartAdd(products[id]));
                 }}
               >
                 장바구니
@@ -124,7 +127,7 @@ export default function Detail(props) {
           </Nav.Item>
         </Nav>
       </div>
-      <DetailTab tabCount={tabCount} item={item} id={id} />
+      <DetailTab tabCount={tabCount} products={products} id={id} />
     </div>
   );
 }
@@ -153,11 +156,9 @@ function DetailTab(props) {
       {props.tabCount === 2 ? <div>2번 탭</div> : null} */}
 
       {
-        [
-          <div>{props.item[props.id]["title"]}</div>,
-          <div>1번 탭</div>,
-          <div>2번 탭</div>,
-        ][props.tabCount]
+        [<div>1번 탭</div>, <div>1번 탭</div>, <div>2번 탭</div>][
+          props.tabCount
+        ]
       }
     </div>
   );

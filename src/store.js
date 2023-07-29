@@ -5,6 +5,7 @@ import products from "./store/productSlice.js";
 
 export const { agePlus } = user.actions;
 export const { countPlus, countMinus, cartDelete, cartAdd } = cartList.actions;
+export const { abcSort, defaultSort } = products.actions;
 
 export default configureStore({
   reducer: {

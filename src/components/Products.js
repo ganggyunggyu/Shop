@@ -1,12 +1,13 @@
 import "./Products.css";
-import { Card, Button } from "react-bootstrap";
-import datas from "../data";
-import { useState } from "react";
+import { Card } from "react-bootstrap";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 function Product(props) {
   const navigate = useNavigate();
-
+  const products = useSelector((products) => {
+    return products["products"];
+  });
   return (
     <div className={`item-box ${props.darkMode}`} key={props.i}>
       <Card
@@ -14,7 +15,7 @@ function Product(props) {
           navigate(`/detail/${props.el.id}`);
         }}
         className={`item musinsa-medium-font ${props.darkMode}`}
-        key={props.i}
+        key={props.el.id}
       >
         <Card.Img
           className="item-img br-10px"
@@ -22,8 +23,8 @@ function Product(props) {
           src={`${process.env.PUBLIC_URL}img/item/item${props.el.id + 1}.jpg`}
         />
         <Card.Body>
-          <Card.Title>{props.el.title}</Card.Title>
-          <Card.Text>{props.price}원</Card.Text>
+          <Card.Title>{products[props.id]["title"]}</Card.Title>
+          <Card.Text>{products[props.id]["price"]}원</Card.Text>
         </Card.Body>
       </Card>
     </div>

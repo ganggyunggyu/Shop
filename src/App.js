@@ -3,47 +3,35 @@ import { Button, Navbar, Container, Nav, Card } from "react-bootstrap";
 import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import Product from "./components/Products";
 import { useEffect, useState } from "react";
-import datas from "./data";
+
 import Detail from "./pages/Detail.js";
 import Cart from "./pages/Cart.js";
 import NavBar from "./components/NavBar";
 import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import { abcSort, defaultSort } from "./store";
 
 function App() {
-  let [shoes, setShoes] = useState(datas);
+  const dispatch = useDispatch();
   const [dataCount, setDataCount] = useState(2);
   const [dataBool, setDataBool] = useState(true);
   const [darkMode, setDarkMode] = useState("");
   const [darkModeBtnStyle, setDarkModeBtnStyle] = useState("");
   const [darkModeBool, setDarkModeBool] = useState(false);
+  const products = useSelector((products) => {
+    return products["products"];
+  });
 
   const priceToString = (price) => {
-    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-  }
-  const abcSort = () => {
-    let copyDatas = [...shoes];
-    copyDatas.sort((a, b) => {
-      if (a.title > b.title) {
-        return 1;
-      } else if (a.title < b.title) {
-        return -1;
-      } else {
-        return 0;
-      }
-    });
-    setShoes(copyDatas);
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
-  const defaultSort = () => {
-    let copyDatas = [...datas];
-    setShoes(copyDatas);
-  };
-  const priceSort = () => {
-    let copyDatas = [...shoes];
-    copyDatas.sort((a, b) => {
-      return a.price - b.price;
-    });
-    setShoes(copyDatas);
-  };
+  // const priceSort = () => {
+  //   let copyDatas = [...shoes];
+  //   copyDatas.sort((a, b) => {
+  //     return a.price - b.price;
+  //   });
+  //   setShoes(copyDatas);
+  // };
   const darkModeBtn = () => {
     if (darkModeBool === false) {
       setDarkModeBool(true);
@@ -62,7 +50,6 @@ function App() {
         setDarkModeBtnStyle("");
       }
     }, 10);
-    console.log(darkModeBool);
   }, [darkModeBool]);
 
   return (
@@ -90,38 +77,35 @@ function App() {
           element={
             <>
               <div className="main-btn-box musinsa-medium-font">
-                <Button
-                  className={`${darkModeBtnStyle}`}
-                  variant="light"
-                  onClick={() => {
-                    priceSort();
-                  }}
-                >저렴 순 정렬
+                <Button className={`${darkModeBtnStyle}`} variant="light">
+                  저렴 순 정렬
                 </Button>
                 <Button
                   className={`${darkModeBtnStyle}`}
                   variant="light"
                   onClick={() => {
-                    abcSort();
+                    dispatch(abcSort());
                   }}
-                >가나다 정렬
+                >
+                  가나다 정렬
                 </Button>
                 <Button
                   className={`${darkModeBtnStyle}`}
                   variant="light"
                   onClick={() => {
-                    defaultSort();
+                    dispatch(defaultSort());
                   }}
-                >원래대로 정렬</Button>
+                >
+                  원래대로 정렬
+                </Button>
               </div>
               <div className="flex-center">
                 <div className="item-container">
-                  {shoes.map((el, i) => {
+                  {products.map((el) => {
                     return (
                       <Product
                         el={el}
-                        price = {priceToString(el['price'])}
-                        i={i}
+                        id={el["id"]}
                         darkMode={darkMode}
                         darkModeBtnStyle={darkModeBtnStyle}
                       ></Product>
@@ -132,22 +116,22 @@ function App() {
               {dataBool === true ? (
                 <div className="btn-box musinsa-medium-font">
                   <Button
-                    onClick={() => {
-                      axios
-                        .get(
-                          `https://codingapple1.github.io/shop/data${dataCount}.json`
-                        )
-                        .then((result) => {
-                          const newData = [...result.data];
-                          const copyDatas = [...shoes, ...newData];
-                          setShoes(copyDatas);
-                          setDataCount(+1);
-                        })
-                        .catch(() => {
-                          console.log("데이터 없음");
-                          setDataBool(false);
-                        });
-                    }}
+                    // onClick={() => {
+                    //   axios
+                    //     .get(
+                    //       `https://codingapple1.github.io/shop/data${dataCount}.json`
+                    //     )
+                    //     .then((result) => {
+                    //       const newData = [...result.data];
+                    //       const copyDatas = [...shoes, ...newData];
+                    //       setShoes(copyDatas);
+                    //       setDataCount(+1);
+                    //     })
+                    //     .catch(() => {
+                    //       console.log("데이터 없음");
+                    //       setDataBool(false);
+                    //     });
+                    // }}
                     className={`btn ${darkModeBtnStyle}`}
                     variant="light"
                   >

@@ -5,7 +5,7 @@ let cartList = createSlice({
   initialState: [],
   reducers: {
     countPlus(state, id) {
-      state[id.payload]["count"] = state[id.payload]["count"] + 1;
+      state[id.payload]["count"] += 1;
     },
     countMinus(state, id) {
       state[id.payload]["count"] -= 1;
@@ -14,14 +14,15 @@ let cartList = createSlice({
       state.splice(id.payload, 1);
     },
     cartAdd(state, el) {
-      for (let i = 0; i < state.length; i++) {
-        if (state[i]["title"] === el.payload["title"]) {
-          state[i]["count"] += 1;
-          return;
-        }
-      }
-      el.payload["count"] += 1;
-      state.push(el.payload);
+      // for (let i = 0; i < state.length; i++) {
+      //   if (state[i]["title"] === el.payload["title"]) {
+      //     state[i]["count"] += 1;
+      //     return;
+      //   }
+      // }
+      // el.payload["count"] += 1;
+      let copyProduct = el.payload;
+      state.push(copyProduct);
     },
   },
 });
